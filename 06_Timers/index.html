@@ -1,0 +1,53 @@
+<!--/**-->
+<!--* @author ishanka on 5/6/21 at 11:28 PM-->
+<!--* @since 0.0.1-->
+<!--*/-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Timers</title>
+
+<body>
+<h1>Async Web APIs in JS</h1>
+<h3 id="count"></h3>
+<h2 id="dis"></h2>
+<ul>
+    <li>AJAX</li>
+    <li>Events</li>
+    <li>Timers</li>
+</ul>
+<button id="btn">Stop</button>
+<script>
+
+    let dis = document.getElementById("dis");
+    let c = document.getElementById("count");
+    let btn = document.getElementById("btn");
+
+    // setTimeout();
+    let timeout = setTimeout(callAfterSomeTime, 4000);
+
+    function callAfterSomeTime() {
+        dis.innerText = "Call me after 4s"
+    }
+    dis.innerText = "Started";
+
+    // setInterval();
+    let interval = setInterval(count, 1000);
+
+    var i = 0;
+
+    function count() {
+        i++;
+        c.innerText = i;
+    }
+
+    //stop
+    btn.addEventListener("click", function () {
+        clearTimeout(timeout);
+        clearInterval(interval);
+    });
+</script>
+</body>
+</html>

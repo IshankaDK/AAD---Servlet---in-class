@@ -1,0 +1,112 @@
+<!--
+/**
+* @author ishanka on 5/6/21 at 10:21 PM
+* @since 0.0.1
+*/
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX </title>
+    <link rel="stylesheet" href="assests/css/bootstrap.min.css">
+</head>
+<body>
+<header class="container-fluid">
+    <h1 id="display">AJAX</h1>
+</header>
+<section class="container-fluid mt-3">
+    <section class="row">
+        <div class="col-md-4">
+            <form>
+                <div>
+                    <label class="form-label" for="id">Customer ID</label>
+                    <input class="form-control" id="id" type="text" name="id">
+                </div>
+                <div>
+                    <label class="form-label" for="name">Customer Name</label>
+                    <input class="form-control" id="name" type="text" name="name">
+                </div>
+                <div>
+                    <label class="form-label" for="address">Customer Address</label>
+                    <input class="form-control" id="address" type="text" name="address">
+                </div>
+                <div>
+                    <label class="form-label" for="salary">Customer Salary</label>
+                    <input class="form-control" id="salary" type="text" name="salary">
+                </div>
+                <div class="mt-3">
+                    <button id="btnSaveCustomer" type="button" class="btn btn-primary">Save Customer</button>
+                    <button id="btnClear" type="button" class="btn btn-warning">Clear</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-8">
+            <table class="table table-bordered table-hover">
+                <thead class="bg-danger text-white">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Salary</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </section>
+</section>
+
+<script src="assests/js/bootstrap.min.js"></script>
+
+<script>
+
+    /* var http;
+     if (window.ActiveX) {
+         http = new ActiveX();
+     } else if (window.XMLHttpRequest) {
+         http = new XMLHttpRequest();
+     }*/
+
+    // let btn = document.getElementById("btnSaveCustomer");
+    // btn.addEventListener("click", function () {
+    //     var xml = new XMLHttpRequest();
+    //     console.log("1 : "+xml.readyState);
+    //
+    //     xml.open("GET","db/db.txt"); //200
+    //     console.log("2 : "+xml.readyState);
+    //
+    //     xml.send();
+    //     console.log("3 : "+xml.readyState);
+    //
+    //     xml.onreadystatechange=function () {
+    //         console.log("Event : "+xml.readyState);
+    //         if (xml.readyState == 4 && xml.status == 200){
+    //             console.log(xml.response);
+    //             console.log(xml.status);
+    //         }
+    //     }
+    // });
+
+    let btn = document.getElementById("btnSaveCustomer");
+    let display = document.getElementById("display");
+    btn.addEventListener("click", function () {
+        console.log("Started");
+        var xml = new XMLHttpRequest();
+        xml.open("GET","db/db.txt",true); //200
+        xml.onreadystatechange=function () {
+            if (xml.readyState == 4 && xml.status == 200){
+                display.innerText = xml.response;
+                console.log(xml.response);
+            }
+        }
+        xml.send();
+        console.log("Ended...");
+    });
+
+</script>
+</body>
+</html>

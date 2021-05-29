@@ -1,0 +1,14 @@
+<customers>
+    <customer>
+        <id>C001</id>
+        <name>Kamal</name>
+        <address>Galle</address>
+        <salary>20321</salary>
+    </customer>
+    <customer>
+        <id>C002</id>
+        <name>Nimal</name>
+        <address>Galle</address>
+        <salary>10255</salary>
+    </customer>
+</customers>

@@ -1,0 +1,144 @@
+<!--
+/**
+* @author ishanka on 5/6/21 at 10:21 PM
+* @since 0.0.1
+*/
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX </title>
+    <link rel="stylesheet" href="assests/css/bootstrap.min.css">
+</head>
+<body>
+<header class="container-fluid">
+    <h1 id="display">AJAX</h1>
+</header>
+<section class="container-fluid mt-3">
+    <section class="row">
+        <div class="col-md-4">
+            <form>
+                <div>
+                    <label class="form-label" for="id">Customer ID</label>
+                    <input class="form-control" id="id" type="text" name="id">
+                </div>
+                <div>
+                    <label class="form-label" for="name">Customer Name</label>
+                    <input class="form-control" id="name" type="text" name="name">
+                </div>
+                <div>
+                    <label class="form-label" for="address">Customer Address</label>
+                    <input class="form-control" id="address" type="text" name="address">
+                </div>
+                <div>
+                    <label class="form-label" for="salary">Customer Salary</label>
+                    <input class="form-control" id="salary" type="text" name="salary">
+                </div>
+                <div class="mt-3">
+                    <button id="btnSaveCustomer" type="button" class="btn btn-primary">Save Customer</button>
+                    <button id="btnClear" type="button" class="btn btn-warning">Clear</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-8">
+            <table class="table table-bordered table-hover">
+                <thead class="bg-danger text-white">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Salary</th>
+                </tr>
+                </thead>
+                <tbody id="tbody">
+
+                </tbody>
+            </table>
+        </div>
+    </section>
+</section>
+
+<script src="assests/jquery-3.6.0.js"></script>
+<script src="assests/js/bootstrap.min.js"></script>
+
+<script>
+
+    /* let btn = document.getElementById("btnSaveCustomer");
+     let display = document.getElementById("display");
+     btn.addEventListener("click", function () {
+         console.log("Started");
+         var xml = new XMLHttpRequest();
+         xml.open("GET","db/db.txt",true); //200
+         xml.onreadystatechange=function () {
+             if (xml.readyState == 4 && xml.status == 200){
+                 display.innerText = xml.response;
+                 console.log(xml.response);
+             }
+         }
+         xml.send();
+         console.log("Ended...");
+     });*/
+
+
+  /*  $("#btnSaveCustomer").click(function () {
+        // var configOb = {
+        //     method: "GET",
+        //     url: "db/db.txt",
+        //     async: true,
+        //     success: function (response) {
+        //         console.log(response);
+        //     }
+        // }
+        //
+        // $.ajax(configOb);
+
+        $.ajax({
+            method: "GET",
+            url: "db/db.txt",
+            async: true,
+            success: function (response) {
+               $("#display").text(response);
+            }
+        });
+    });*/
+
+  /*  $("#btnSaveCustomer").click(function () {
+        $.ajax({
+            method: "GET",
+            url: "db/db.xml",
+            async: true,
+            success: function (response) {
+               let a = $(response).children('customers').children();
+                for (let i = 0; i < a.length; i++) {
+                    let id = $(a[i]).find("id").text();
+                    let name = $(a[i]).find("name").text();
+                    let address = $(a[i]).find("address").text();
+                    let salary = $(a[i]).find("salary").text();
+
+                    let row = `<tr><td>${id}</td><td>${name}</td><td>${address}</td><td>${salary}</td></tr>`;
+                    $("#tbody").append(row);
+                }
+
+            }
+        });
+    });*/
+
+    $("#btnSaveCustomer").click(function () {
+        $.ajax({
+            method: "GET",
+            url: "db/db.json",
+            async: true,
+            // dataType:"json",
+            success: function (response) {
+                for (let i of response) {
+                    let row = `<tr><td>${i.id}</td><td>${i.name}</td><td>${i.address}</td><td>${i.salary}</td></tr>`;
+                    $("#tbody").append(row);
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

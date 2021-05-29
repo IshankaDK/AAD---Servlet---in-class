@@ -1,0 +1,163 @@
+<!--
+/**
+* @author ishanka on 5/6/21 at 10:21 PM
+* @since 0.0.1
+*/
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>POS with AJAX </title>
+    <link rel="stylesheet" href="assests/css/bootstrap.min.css">
+</head>
+<body>
+<header class="container-fluid">
+    <h1>POS with AJAX</h1>
+</header>
+<section class="container-fluid mt-3">
+    <section class="row">
+        <div class="col-md-4">
+            <form id="formCustomer">
+                <div>
+                    <label class="form-label" for="id">Customer ID</label>
+                    <input class="form-control" id="id" type="text" name="id">
+                </div>
+                <div>
+                    <label class="form-label" for="name">Customer Name</label>
+                    <input class="form-control" id="name" type="text" name="name">
+                </div>
+                <div>
+                    <label class="form-label" for="address">Customer Address</label>
+                    <input class="form-control" id="address" type="text" name="address">
+                </div>
+                <div>
+                    <label class="form-label" for="salary">Customer Salary</label>
+                    <input class="form-control" id="salary" type="text" name="salary">
+                </div>
+                <div class="mt-3">
+                    <button id="btnSaveCustomer" type="button" class="btn btn-primary">Save Customer</button>
+                    <button id="btnUpdateCustomer" type="button" class="btn btn-success">Update Customer</button>
+                    <button id="btnDeleteCustomer" type="button" class="btn btn-danger">Delete Customer</button>
+                    <button id="btnLoad" type="button" class="btn btn-warning">Load All</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-8">
+            <table class="table table-bordered table-hover">
+                <thead class="bg-danger text-white">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Salary</th>
+                </tr>
+                </thead>
+                <tbody id="tbody">
+
+                </tbody>
+            </table>
+        </div>
+    </section>
+</section>
+
+<script src="assests/jquery-3.6.0.js"></script>
+<script src="assests/js/bootstrap.min.js"></script>
+
+<script>
+
+    // loadAllCustomer();
+
+    $("#btnLoad").click(function () {
+        loadAllCustomer();
+    });
+
+    function loadAllCustomer() {
+        $("#tbody").empty();
+        $.ajax(
+            {
+                method: "GET",
+                url: "customer",
+                async: true,
+                dataType:'json', //convert response into JSON i valid
+                success: function (response) {
+                    // let ob = JSON.parse(response); // convert response into JSON i valid
+                    for (let i of response) {
+                        let row = `<tr><td>${i.id}</td><td>${i.name}</td><td>${i.address}</td><td>${i.salary}</td></tr>`;
+                        $("#tbody").append(row);
+                    }
+                }
+            }
+        );
+    }
+
+    $("#btnSaveCustomer").click(function () {
+        // let id = $("#id").val();
+        // let name = $("#name").val();
+        // let address = $("#address").val();
+        // let salary = $("#salary").val();
+
+        let form = $("#formCustomer").serialize();
+
+        $.ajax(
+            {
+                method: "POST",
+                url: "customer",
+                async: true,
+                /* data: {
+                     id: id,
+                     name: name,
+                     address: address,
+                     salary: salary,
+                 },*/
+                data: form,
+                success: function (data) {
+                    console.log(data)
+                    loadAllCustomer();
+                }
+            }
+        );
+    });
+
+    $("#btnUpdateCustomer").click(function () {
+
+        let id = $("#id").val();
+        let name = $("#name").val();
+        let address = $("#address").val();
+        let salary = $("#salary").val();
+        $.ajax({
+            method: "PUT",
+            url: "customer",
+            contentType: "application/json",
+            async: true,
+            data: JSON.stringify({
+                id: id,
+                name: name,
+                address: address,
+                salary: salary
+            }),
+            success: function (data, responseState, xhr) {
+                console.log(data);
+                loadAllCustomer();
+            }
+        });
+    });
+
+    $("#btnDeleteCustomer").click(function () {
+        let id = $("#id").val();
+        $.ajax({
+            method: "DELETE",
+            url: "customer?id="+id,
+            contentType: "application/json",
+            async: true,
+            success: function (data, responseState, xhr) {
+                console.log(data);
+                loadAllCustomer();
+            }
+        });
+    });
+
+</script>
+</body>
+</html>

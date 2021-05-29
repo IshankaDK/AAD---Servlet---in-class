@@ -1,0 +1,64 @@
+<!--/**-->
+<!--* @author ishanka on 5/29/21 at 7:01 PM-->
+<!--* @since 0.0.1-->
+<!--*/-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>File Upload</title>
+    <link rel="stylesheet" href="assests/css/bootstrap.min.css">
+</head>
+<body>
+
+<section class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Upload a file Using Servlet</h1>
+
+            <form action="up" method="post" enctype="multipart/form-data">
+                <label for="file1" class="form-label"> Select a File</label>
+                <input class="form-control" id="file1" type="file" name="file">
+                <button class="btn btn-danger mt-3">Upload</button>
+            </form>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Upload a file Using Servlet with AJAX</h1>
+
+            <form>
+                <label for="file" class="form-label"> Select a File</label>
+                <input class="form-control" name="file" type="file" id="file">
+                <button type="button" id="btnSendFile" class="btn btn-danger mt-3">Upload</button>
+            </form>
+
+        </div>
+    </div>
+</section>
+
+<script src="assests/jquery-3.6.0.js"></script>
+
+<script>
+    $("#btnSendFile").click(function () {
+        let fileObject = $("#file")[0].files[0];
+        let fileName = $("#file")[0].files[0].name;
+
+        let data = new FormData();
+        data.append("file",fileObject,fileName);
+
+        $.ajax({
+            url:"up",
+            method:'post',
+            async:true,
+            processData: false,
+            contentType:false,
+            data:data
+        });
+    });
+</script>
+
+</body>
+</html>
